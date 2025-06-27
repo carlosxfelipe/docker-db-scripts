@@ -11,7 +11,7 @@ O comando no `.bat` cria o container com:
 
 - Porta padrão do SQL Server (1433)
 - Volume persistente `sqlserver_data`
-- Nome do container `sqlserver-bellemosca`
+- Nome do container `sqlserver-container`
 - Senha predefinida para o usuário `SA`
 
 ## Informações de Conexão
@@ -26,4 +26,4 @@ Use os dados abaixo para se conectar ao SQL Server rodando no seu container com 
 | **Senha (Password)**  | `Bellemosca@123`           | Senha definida no script Docker                        |
 | **Database**          | `master` (ou outro criado) | Banco padrão, pode criar e usar outro se desejar       |
 | **Driver**            | `SQL Server` / `MSSQL`     | Escolha o driver SQL Server na ferramenta              |
-| **Nome do Container** | `sqlserver-bellemosca`     | Nome do container Docker (não é necessário na conexão) |
+| **Nome do Container** | `sqlserver-container`      | Nome do container Docker (não é necessário na conexão) |

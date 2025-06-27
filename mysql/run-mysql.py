@@ -7,7 +7,7 @@ def prompt(texto, padrao):
     return padrao if entrada.lower() in ["", "default"] else entrada
 
 
-username = prompt("Informe o usuário", "SA")
+username = prompt("Informe o usuário", "root")
 
 while True:
     password = input(f"Informe a senha para o usuário {username}: ").strip()
@@ -15,26 +15,24 @@ while True:
         break
     print("A senha não pode ficar em branco.")
 
-host_port = prompt("Informe a porta externa do host", "1433")
-container_name = prompt("Informe o nome do container", "sqlserver-container")
-volume_name = prompt("Informe o nome do volume Docker", "sqlserver_data")
-sql_version = prompt("Informe a versão da imagem", "2022-latest")
+host_port = prompt("Informe a porta externa do host", "3306")
+container_name = prompt("Informe o nome do container", "mysql-container")
+volume_name = prompt("Informe o nome do volume Docker", "mysql_data")
+mysql_version = prompt("Informe a versão da imagem", "latest")
 
 command = [
     "docker",
     "run",
     "-e",
-    "ACCEPT_EULA=Y",
-    "-e",
-    f"MSSQL_SA_PASSWORD={password}",
+    f"MYSQL_ROOT_PASSWORD={password}",
     "-p",
-    f"{host_port}:1433",
+    f"{host_port}:3306",
     "-v",
-    f"{volume_name}:/var/opt/mssql",
+    f"{volume_name}:/var/lib/mysql",
     "--name",
     container_name,
     "-d",
-    f"mcr.microsoft.com/mssql/server:{sql_version}",
+    f"mysql:{mysql_version}",
 ]
 
 print("\nIniciando container Docker...")
@@ -52,14 +50,14 @@ try:
     Porta: {host_port}
     Container: {container_name}
     Volume: {volume_name}
-    Versão do SQL Server: {sql_version}
-"""
+    Versão do MySQL: {mysql_version}
+    """
     ).strip()
 
-    with open("dados_conexao_mssql.txt", "w", encoding="utf-8") as f:
+    with open("dados_conexao_mysql.txt", "w", encoding="utf-8") as f:
         f.write(info)
 
-    print("\nArquivo 'dados_conexao_mssql.txt' criado com sucesso!")
+    print("\nArquivo 'dados_conexao_mysql.txt' criado com sucesso!")
 
 except subprocess.CalledProcessError as e:
     print("\nErro ao iniciar o container:")
